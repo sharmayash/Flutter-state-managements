@@ -77,6 +77,10 @@ class VanillaBlocHome extends StatelessWidget {
           ),
         ));
   }
+
+  void dispose() {
+    _bloc.dispose();
+  }
 }
 
 class BlocHome extends StatelessWidget {
