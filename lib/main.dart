@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './provider/Counter.dart';
 import './bloc/counterBloc.dart';
+import './vanillaBloc/vanillaCounterBloc.dart';
+import './vanillaBloc/counterEvents.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,13 +15,67 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blueGrey),
-      home: ChangeNotifierProvider(
-          create: (ctx) => Counter(), child: MyHomePage()),
+      // home: ChangeNotifierProvider(
+      //     create: (ctx) => Counter(), child: MyHomePage()),
       // home: BlocProvider(
       //   create: (BuildContext context) => CounterBloc(),
       //   child: BlocHome(),
       // ),
+      home: VanillaBlocHome(),
     );
+  }
+}
+
+class VanillaBlocHome extends StatelessWidget {
+  final _bloc = VanillaCounterBloc();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Vanilla Bloc Pattern"),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              StreamBuilder(
+                  stream: _bloc.counter,
+                  initialData: 0,
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    return Text(
+                      "Counter Value : ${snapshot.data}",
+                      style: TextStyle(fontSize: 30, letterSpacing: 2),
+                    );
+                  }),
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  RaisedButton(
+                    child: Text(
+                      "Increment",
+                      textScaleFactor: 1.3,
+                    ),
+                    color: Colors.blueGrey,
+                    onPressed: () {
+                      _bloc.counterEventSink.add(IncrementEvent());
+                    },
+                  ),
+                  RaisedButton(
+                    child: Text(
+                      "Decrement",
+                      textScaleFactor: 1.3,
+                    ),
+                    color: Colors.blueGrey,
+                    onPressed: () {
+                      _bloc.counterEventSink.add(DecrementEvent());
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
 
