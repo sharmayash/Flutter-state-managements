@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter State Management',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blueGrey),
+      theme:
+          ThemeData(primarySwatch: Colors.blueGrey, accentColor: Colors.black),
       initialRoute: '/',
       routes: {
         '/': (ctx) => MySetStateHome(),

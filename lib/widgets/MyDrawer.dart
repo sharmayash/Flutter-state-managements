@@ -23,7 +23,7 @@ class MyDrawer extends StatelessWidget {
             color: Theme.of(context).accentColor,
             alignment: Alignment.center,
             child: Text(
-              "Cooking Up!",
+              "Flutter State Managements",
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 20,
