@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './provider/Counter.dart';
 import './bloc/counterBloc.dart';
-import './vanillaBloc/vanillaCounterBloc.dart';
-import './vanillaBloc/counterEvents.dart';
+import './provider/Counter.dart';
+
+// import widgets
+import './widgets/BlocHome.dart';
+import './widgets/ProviderHome.dart';
+import './widgets/MySetStateHome.dart';
+import './widgets/VanillaBlocHome.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,175 +17,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter State Management',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blueGrey),
-      // home: ChangeNotifierProvider(
-      //     create: (ctx) => Counter(), child: MyHomePage()),
-      // home: BlocProvider(
-      //   create: (BuildContext context) => CounterBloc(),
-      //   child: BlocHome(),
-      // ),
-      home: VanillaBlocHome(),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => MySetStateHome(),
+        '/provider': (ctx) => ChangeNotifierProvider(
+            create: (ctx) => Counter(), child: ProviderHome()),
+        '/bloc-package': (ctx) => BlocProvider(
+              create: (BuildContext context) => CounterBloc(),
+              child: BlocHome(),
+            ),
+        '/vanillaBloc': (ctx) => VanillaBlocHome()
+      },
     );
-  }
-}
-
-class VanillaBlocHome extends StatelessWidget {
-  final _bloc = VanillaCounterBloc();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Vanilla Bloc Pattern"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              StreamBuilder(
-                  stream: _bloc.counter,
-                  initialData: 0,
-                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                    return Text(
-                      "Counter Value : ${snapshot.data}",
-                      style: TextStyle(fontSize: 30, letterSpacing: 2),
-                    );
-                  }),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text(
-                      "Increment",
-                      textScaleFactor: 1.3,
-                    ),
-                    color: Colors.blueGrey,
-                    onPressed: () {
-                      _bloc.counterEventSink.add(IncrementEvent());
-                    },
-                  ),
-                  RaisedButton(
-                    child: Text(
-                      "Decrement",
-                      textScaleFactor: 1.3,
-                    ),
-                    color: Colors.blueGrey,
-                    onPressed: () {
-                      _bloc.counterEventSink.add(DecrementEvent());
-                    },
-                  ),
-                ],
-              )
-            ],
-          ),
-        ));
-  }
-
-  void dispose() {
-    _bloc.dispose();
-  }
-}
-
-class BlocHome extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Bloc Pattern(flutter_bloc & bloc)"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              BlocBuilder<CounterBloc, int>(
-                builder: (BuildContext context, int state) {
-                  return Text(
-                    "Counter Value : $state",
-                    style: TextStyle(fontSize: 30, letterSpacing: 2),
-                  );
-                },
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text(
-                      "Increment",
-                      textScaleFactor: 1.3,
-                    ),
-                    color: Colors.blueGrey,
-                    onPressed: () {
-                      BlocProvider.of<CounterBloc>(context)
-                          .add(CounterEvents.increment);
-                    },
-                  ),
-                  RaisedButton(
-                    child: Text(
-                      "Decrement",
-                      textScaleFactor: 1.3,
-                    ),
-                    color: Colors.blueGrey,
-                    onPressed: () {
-                      BlocProvider.of<CounterBloc>(context)
-                          .add(CounterEvents.decrement);
-                    },
-                  ),
-                ],
-              )
-            ],
-          ),
-        ));
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  // For provider
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Provider Package"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Consumer<Counter>(
-                builder: (context, count, child) {
-                  return Text(
-                    "Counter Value : ${count.counterVal.toString()}",
-                    style: TextStyle(fontSize: 30, letterSpacing: 2),
-                  );
-                },
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text(
-                      "Increment",
-                      textScaleFactor: 1.3,
-                    ),
-                    color: Colors.blueGrey,
-                    onPressed: () {
-                      Provider.of<Counter>(context, listen: false).increment();
-                    },
-                  ),
-                  RaisedButton(
-                    child: Text(
-                      "Decrement",
-                      textScaleFactor: 1.3,
-                    ),
-                    color: Colors.blueGrey,
-                    onPressed: () {
-                      Provider.of<Counter>(context, listen: false).decrement();
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ));
   }
 }
