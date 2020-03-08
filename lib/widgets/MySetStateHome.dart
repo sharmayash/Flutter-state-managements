@@ -45,7 +45,7 @@ class _MySetStateHomeState extends State<MySetStateHome> {
                   "Increment",
                   textScaleFactor: 1.3,
                 ),
-                color: Colors.blueGrey,
+                color: Colors.grey[700],
                 onPressed: () => setIncrement(),
               ),
               RaisedButton(
@@ -53,7 +53,7 @@ class _MySetStateHomeState extends State<MySetStateHome> {
                   "Decrement",
                   textScaleFactor: 1.3,
                 ),
-                color: Colors.blueGrey,
+                color: Colors.grey[700],
                 onPressed: () => setDecrement(),
               ),
             ],

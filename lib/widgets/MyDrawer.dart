@@ -47,6 +47,9 @@ class MyDrawer extends StatelessWidget {
           buildListTile("Bloc and flutter_bloc Packages", () {
             Navigator.of(context).pushReplacementNamed('/bloc-package');
           }),
+          buildListTile("Redux and flutter_redux Packages", () {
+            Navigator.of(context).pushReplacementNamed('/redux');
+          }),
         ],
       ),
     );

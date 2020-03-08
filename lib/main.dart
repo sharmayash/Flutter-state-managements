@@ -9,6 +9,7 @@ import './provider/Counter.dart';
 import './widgets/BlocHome.dart';
 import './widgets/ProviderHome.dart';
 import './widgets/MySetStateHome.dart';
+import './widgets/FlutterReduxApp.dart';
 import './widgets/VanillaBlocHome.dart';
 
 void main() => runApp(MyApp());
@@ -17,10 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: new ThemeData.dark(),
       title: 'Flutter State Management',
       debugShowCheckedModeBanner: false,
-      theme:
-          ThemeData(primarySwatch: Colors.blueGrey, accentColor: Colors.black),
+      // theme:
+      //     ThemeData(primarySwatch: Colors.blueGrey, accentColor: Colors.black),
       initialRoute: '/',
       routes: {
         '/': (ctx) => MySetStateHome(),
@@ -30,7 +32,8 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => CounterBloc(),
               child: BlocHome(),
             ),
-        '/vanillaBloc': (ctx) => VanillaBlocHome()
+        '/vanillaBloc': (ctx) => VanillaBlocHome(),
+        '/redux': (ctx) => FlutterReduxApp()
       },
     );
   }

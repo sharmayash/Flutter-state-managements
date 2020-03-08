@@ -34,7 +34,7 @@ class VanillaBlocHome extends StatelessWidget {
                       "Increment",
                       textScaleFactor: 1.3,
                     ),
-                    color: Colors.blueGrey,
+                    color: Colors.grey[700],
                     onPressed: () {
                       _bloc.counterEventSink.add(IncrementEvent());
                     },
@@ -44,7 +44,7 @@ class VanillaBlocHome extends StatelessWidget {
                       "Decrement",
                       textScaleFactor: 1.3,
                     ),
-                    color: Colors.blueGrey,
+                    color: Colors.grey[700],
                     onPressed: () {
                       _bloc.counterEventSink.add(DecrementEvent());
                     },

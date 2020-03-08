@@ -32,7 +32,7 @@ class BlocHome extends StatelessWidget {
                       "Increment",
                       textScaleFactor: 1.3,
                     ),
-                    color: Colors.blueGrey,
+                    color: Colors.grey[700],
                     onPressed: () {
                       BlocProvider.of<CounterBloc>(context)
                           .add(CounterEvents.increment);
@@ -43,7 +43,7 @@ class BlocHome extends StatelessWidget {
                       "Decrement",
                       textScaleFactor: 1.3,
                     ),
-                    color: Colors.blueGrey,
+                    color: Colors.grey[700],
                     onPressed: () {
                       BlocProvider.of<CounterBloc>(context)
                           .add(CounterEvents.decrement);
